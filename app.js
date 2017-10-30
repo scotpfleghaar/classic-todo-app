@@ -8,6 +8,10 @@ const port = 3000;
 // Init app
 const app = express();
 
+//Mongo
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017/todoapp';
+
 //Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -21,10 +25,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//Routing
-app.get('/', (req, res, next) => {
-    res.render('index');
+// Connect to Mongodb
+MongoClient.connect(url, (err, database) => {
+    console.log('MongoDB connected');
+    if (err) throw err;
+    db = database;
+    Todos = db.collection('todos');
+
+    //Moving the connection code so that we don't need to keep connecting throughout the project.
+    app.listen(port, () => {
+        console.log('Server Running on ' + port)
+    });
 });
-app.listen(port, () => {
-    console.log('Server Running on ' + port)
+
+//Routing  
+app.get('/', (req, res, next) => {
+    Todos.find({}).toArray((err, todos) => {
+        if (err) {
+            return console.log(err);
+        }
+        console.log(todos);
+        res.render('index', {
+            todos: todos
+        });
+    });
 });

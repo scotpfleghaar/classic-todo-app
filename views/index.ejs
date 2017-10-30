@@ -1,5 +1,14 @@
 <% include ../views/partials/header %>
-    HELLOW
+
+    <ul>
+        <% todos.forEach(function(todos){%>
+            <li>
+                <%= todo.text %> -
+                    <%= todo.body %>
+            </li>
+            <%})%>
+
+    </ul>
 
 
 
