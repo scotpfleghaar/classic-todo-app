@@ -1,12 +1,12 @@
 <% include ../views/partials/header %>
 
     <ul>
-        <% todos.forEach(function(todos){%>
+        <% todos.forEach(function(todo){%>
             <li>
-                <%= todos.text %> -
-                    <%= todos.body %>
+                <%= todo.text %> -
+                    <%= todo.body %>
             </li>
-            <%})%>
+            <% }) %>
 
     </ul>
 

@@ -33,11 +33,11 @@ MongoClient.connect(url, (err, database) => {
     db.collection('todos').insertMany([
         // MongoDB adds the _id field with an ObjectId if _id is not present
         {
-            test: "Task One",
+            text: "Task One",
             body: "Do someStruff"
         },
         {
-            item: "Milk?",
+            text: "Milk?",
             body: "GET THAT MILK!"
         }
     ]);
