@@ -30,6 +30,17 @@ MongoClient.connect(url, (err, database) => {
     console.log('MongoDB connected');
     if (err) throw err;
     db = database;
+    db.collection('todos').insertMany([
+        // MongoDB adds the _id field with an ObjectId if _id is not present
+        {
+            test: "Task One",
+            body: "Do someStruff"
+        },
+        {
+            item: "Milk?",
+            body: "GET THAT MILK!"
+        }
+    ]);
     Todos = db.collection('todos');
 
     //Moving the connection code so that we don't need to keep connecting throughout the project.
